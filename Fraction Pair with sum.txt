@@ -1,0 +1,24 @@
+class Solution
+{
+    public:
+    void solve(int numerator[],int denominator[],int n){
+        for(int i=0;i<n;i++){
+            int k=__gcd(numerator[i],denominator[i]);
+            numerator[i]=numerator[i]/k;
+            denominator[i]=denominator[i]/k;
+        }
+        return;
+    }
+    int countFractions(int n, int numerator[], int denominator[])
+    {
+        solve(numerator,denominator,n);
+        int cnt=0;
+        map<pair<int,int>,int> mp;
+        mp[{numerator[0],denominator[0]}]++;
+        for(int i=1;i<n;i++){
+            cnt+=mp[{denominator[i]-numerator[i],denominator[i]}];
+            mp[{numerator[i],denominator[i]}]++;
+        }
+        return cnt;
+    }
+};
